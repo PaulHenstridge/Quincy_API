@@ -1,3 +1,6 @@
+source data:
+https://raw.githubusercontent.com/sourabh-joshi/awesome-quincy-larson-emails/main/emails.json
+
 to activte venv:
 $ source venv/bin/activate
 
