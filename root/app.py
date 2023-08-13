@@ -1,5 +1,5 @@
 from .db.update_db import update_database
-from .get_data import get_data
+from .utils.get_data import get_data
 from flask import Flask
 
 app = Flask(__name__)
