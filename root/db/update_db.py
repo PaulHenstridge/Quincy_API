@@ -1,6 +1,6 @@
 from mongoengine import connect
-from models.email_link import EmailLink
-from models.quote import Quote
+from ..models.email_link import EmailLink
+from ..models.quote import Quote
 from mongoengine import DoesNotExist
 
 connect(db="quincy_api", host="localhost", port=27017)
