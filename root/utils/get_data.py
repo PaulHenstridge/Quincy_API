@@ -1,6 +1,8 @@
 import requests
 from datetime import datetime
 
+from .query_api import query_API
+
 #this func allows the date to be parsed in either abbreviated or full word format
 def flexible_strptime(date_str):
     formats = ["%b %d, %Y", "%B %d, %Y"] 
@@ -12,6 +14,9 @@ def flexible_strptime(date_str):
     raise ValueError(f"time data {date_str!r} does not match any of the provided formats")
 
 def get_data():
+
+
+
     response = requests.get(
         "https://raw.githubusercontent.com/sourabh-joshi/awesome-quincy-larson-emails/main/emails.json"
     )

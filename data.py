@@ -1,0 +1,1 @@
+{'id': 'chatcmpl-7nnzsKIeTFoTlRQsw0dxJWdjbWvYn', 'object': 'chat.completion', 'created': 1692104616, 'model': 'gpt-3.5-turbo-0613', 'choices': [{'index': 0, 'message': {'role': 'assistant', 'content': 'A fact about sardines is'}, 'finish_reason': 'length'}], 'usage': {'prompt_tokens': 15, 'completion_tokens': 7, 'total_tokens': 22}}

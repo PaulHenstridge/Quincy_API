@@ -10,7 +10,7 @@ def update_database(link_data, quote_data):
     for entry in link_data:
         try:
             db_record = EmailLink.objects.get(date_time=entry["date_time"])
-            print(f"data from {entry['date']} already saved.  DB up to date")
+            #print(f"data from {entry['date']} already saved.  DB up to date")
             
         except DoesNotExist:
             email_link = EmailLink(
