@@ -1,21 +1,24 @@
 import requests
 from bs4 import BeautifulSoup
 
-def get_content_tags(data):
+def scrape_content(data):
     #for each element in data
     for article in data:
         print('ARTICLE!', article)
         response = requests.get(article["link"])
-        soup = BeautifulSoup(response.text, 'html.parser')
+
     #scrape the text content of the article
+        soup = BeautifulSoup(response.text, 'html.parser')
         articles = soup.find_all("article")
-        print(''.join(article.text for article in articles))
+        print(f"there are {len(articles)} article elements")
+        article_text = ''.join(article.text for article in articles)
+
     #pass the text to GPT to return content tags
 
     #save tags to DB
     
 
-get_content_tags([{
+scrape_content([{
 "date": "June 16, 2023",
 "description": "C is the most widely-used programming language in the world. Even when you're coding in Python or JavaScript, you're still using C under the hood. One key reason why C is still so popular 50 years after its creation is its high performance. C directly interacts with computer hardware. One way it does this is through Pointers, which point to the location of data in the computer's physical memory. In this beginner's freeCodeCamp course on C programming, you'll learn about Pointers and key concepts like Passing By Reference, Passing By Value, Void Pointers, Arrays, and more.",
 "length": "2hours",

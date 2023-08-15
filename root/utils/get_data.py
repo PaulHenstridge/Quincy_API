@@ -1,6 +1,5 @@
 import requests
 from datetime import datetime
-from get_content_tags import get_content_tags
 
 #this func allows the date to be parsed in either abbreviated or full word format
 def flexible_strptime(date_str):
