@@ -16,7 +16,7 @@ from .controllers import link_controller
 def main():
     link_data, quote_data = get_data()
     update_database(link_data, quote_data)
-    query_API()
+    print(query_API("Why are clowns so happy?"))
     app.run(debug=True)
 
     
