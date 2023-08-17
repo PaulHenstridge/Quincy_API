@@ -1,8 +1,8 @@
 * {
     box-sizing: border-box;
     text-decoration: none;
-    border: none;
-    margin: none;
+    /* border: none; */
+    /* margin: 0; */
 
 }
 
@@ -11,10 +11,20 @@ header{
     display: flex;
     flex-direction: column;
     align-items: center;
-    background-color: darkgoldenrod;
+    background-color: darkcyan;
 }
 
 main {
-    background-color: darkcyan;
+    background-color: darkgoldenrod;
     padding:2rem;
+}
+
+main > article {
+    background-color: rgba(250, 235, 215, 0.259);
+    padding:1rem;
+    margin-bottom:1rem;
+}
+
+main >h2 {
+    margin-top:0;
 }
