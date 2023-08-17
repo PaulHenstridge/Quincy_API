@@ -1,7 +1,7 @@
 from ..app import app
 from mongoengine import Document, StringField, connect
 from ..models.email_link import EmailLink
-from flask import jsonify, request
+from flask import jsonify, request, send_from_directory
 
 
 connect(db='quincy_api', host='localhost', port=27017)
@@ -9,7 +9,7 @@ connect(db='quincy_api', host='localhost', port=27017)
 #index
 @app.route('/')
 def index():
-    return "the home page with docs, routes etc here  BOOBS"
+    return send_from_directory(app.static_folder, 'index.html')
 
 #get all
 @app.route('/links')

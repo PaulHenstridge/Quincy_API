@@ -14,9 +14,7 @@ def flexible_strptime(date_str):
     raise ValueError(f"time data {date_str!r} does not match any of the provided formats")
 
 def get_data():
-
-
-
+    
     response = requests.get(
         "https://raw.githubusercontent.com/sourabh-joshi/awesome-quincy-larson-emails/main/emails.json"
     )
