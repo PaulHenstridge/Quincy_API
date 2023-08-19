@@ -10,9 +10,11 @@ $ deactivate
 generate requirements file:
 $ pip freeze > requirements.txt
 
-run the app from quincy_api directory:
-$ python3 -m root.app  
-apparently necessary due to modules and relative paths,  not totally clear tbh.
+run the app (from quincy_api directory - outside of root):
+$ python3 run.py
+
+run with data fetch (and api calls etc)
+$ python3 run.py --fetch-data
 
 for deployment: host DB on Atlas and link to hosted app.
 Setting up MongoDB Atlas:

@@ -1,18 +1,19 @@
-from ..app import app
+from flask import jsonify, request, send_from_directory, Blueprint
 from mongoengine import Document, StringField, connect
 from ..models.email_link import EmailLink
-from flask import jsonify, request, send_from_directory
 
+# Create a Blueprint instance
+link_blueprint = Blueprint('link_controller', __name__)
 
 connect(db='quincy_api', host='localhost', port=27017)
 
 #index
-@app.route('/')
+@link_blueprint.route('/')
 def index():
     return send_from_directory(app.static_folder, 'index.html')
 
 #get all
-@app.route('/links')
+@link_blueprint.route('/links')
 def get_all_links():
     all_links = EmailLink.objects()
     links_list = [{
@@ -26,7 +27,7 @@ def get_all_links():
 
 
 # search description text by making a GET request to /links/search?term=SEARCH_TERM.
-@app.route('/links/search')
+@link_blueprint.route('/links/search')
 def search_links():
     # Get search term query params
     search_term = request.args.get('term', '')  # Default to empty string if not provided
