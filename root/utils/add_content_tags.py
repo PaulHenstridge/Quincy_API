@@ -11,10 +11,11 @@ def add_content_tags(link_data):
     tokens_this_minute = 0
     start_time = time.time()
     current_minute = int(time.time() // 60)
+    tags_lists = []
 
     for link in link_data:
         article_text = scrape_content(link["link"])
-        token_count = enc.encode(article_text)
+        token_count = len(enc.encode(article_text))
 
         elapsed_time_this_minute = (time.time() - start_time) % 60
 
@@ -36,7 +37,10 @@ def add_content_tags(link_data):
         tokens_this_minute += token_count
         AI_response = query_API(article_text)
         print(AI_response)
-
-        #link["tags"] = AI_response   think about how we want the data - list, string?
-        # above adds it ass a string.  research ways of searching  in py
-        #if ok, add the tags to the link_data dict
+        #convert to list
+        tag_list = [keyword.strip() for keyword in AI_response.split(',')]
+        # add to dictionary
+        #link["tags"] = tag_list
+        tags_lists.append(tag_list)
+    
+    return tags_lists
