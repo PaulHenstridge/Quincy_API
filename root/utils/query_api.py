@@ -37,9 +37,9 @@ def query_API(article):
             {"role": "system", 
              "content": """Your role is to summarise articles into searchable keywords. Articles will give an introduction to a lesson
                             for students of software development, coding, tech etc.  the keywords will be used to search the lessons by content, so 
-                            should be consistent, short (1-2 words per keyword), and capture the key subject matter of interest to students. Prioritise technologies
-                            e.g. React, Python, Node.js; concepts e.g. TDD, SOLID, design principles; associated activities e.g. interview prep, algorithms, deploying websites
-                            webscrapers, blockchain etc.   return only a list of keywords.  DO not include any other response in the completion, except for the list of keywords,
+                            should be consistent, short (1-2 words per keyword), and capture the key subject matter of interest to students. Prioritise the author's name, technologies
+                            e.g. React, Python, Node.js, C++; concepts e.g. TDD, SOLID, design principles, abstraction; associated activities e.g. interview prep, algorithms, deploying websites
+                            webscrapers, blockchain etc. avoid vague terms e.g. course, teaching, learn; return only a list of keywords. Do not include any other response in the completion, except for the list of keywords,
                             seperated by commas.  e.g.  Javascript, Node.js, webcrawler, MongoDB, code-along"""},
             { "role": "user", "content": trimmed_article }
         ],
