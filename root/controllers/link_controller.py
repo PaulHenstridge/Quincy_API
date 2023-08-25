@@ -1,4 +1,4 @@
-from flask import jsonify, request, send_from_directory, Blueprint
+from flask import jsonify, request, send_from_directory, Blueprint, current_app
 from mongoengine import Document, StringField, connect
 from random import sample
 
@@ -13,7 +13,7 @@ connect(db='quincy_api', host='localhost', port=27017)
 #index - serving home page
 @link_blueprint.route('/')
 def index():
-    return send_from_directory(app.static_folder, 'index.html')
+    return send_from_directory(current_app.static_folder, 'index.html')
 
 
 
@@ -35,7 +35,8 @@ def get_all_links():
 # get a random link
 @link_blueprint.route('/links/random')
 def get_random_link():
-    random_link = sample(EmailLink.objects(), 1)[0]
+    links_list = list(EmailLink.objects())
+    random_link = sample(links_list, 1)[0]
     link_details = {
         'date': random_link.date,
         'link': random_link.link,

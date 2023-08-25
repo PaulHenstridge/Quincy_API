@@ -1,8 +1,22 @@
 const getAllBtn = document.querySelector('#get-all-btn')
 const searchDescripBtn = document.querySelector('#search-descrip-btn')
+const getRandomBtn = document.querySelector('#get-random-btn')
 
 getAllBtn.addEventListener('click', () => {
     fetch('/links')
+      .then(response => response.json())
+      .then(data => {
+        console.log(data);
+        // display data somewhere
+      })
+      .catch(error => {
+        console.error("Error fetching all links:", error);
+      });
+})
+
+
+getRandomBtn.addEventListener('click', () => {
+    fetch('/links/random')
       .then(response => response.json())
       .then(data => {
         console.log(data);
