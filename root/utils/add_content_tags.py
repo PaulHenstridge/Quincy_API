@@ -14,7 +14,7 @@ def add_content_tags(link_data):
     start_time = time.time()
     current_minute = int(time.time() // 60)
     tags_lists = []
-
+    count = 1
     for link in link_data:
         article_text = scrape_content(link["link"])
         if article_text is not None:
@@ -40,7 +40,9 @@ def add_content_tags(link_data):
 
             tokens_this_minute += token_count
             AI_response = query_API(article_text)
+
             print(AI_response)
+
             #convert to list
             tag_list = [keyword.strip() for keyword in AI_response.split(',')]
             # add to dictionary
@@ -48,7 +50,10 @@ def add_content_tags(link_data):
             tags_lists.append(tag_list)  # redundant?
     ####   here at this point     ####   pass link_data and tag_list tp update_db(), get it saved immediately
             update_links_collection(link, tag_list)
+            print(f"link {count} of {len(link_data)} saved")
+            count+=1
         else:
-            print("Link cannot be reached")
+            print(f"link {count} of {len(link_data)}  cannot be reached")
+            count+=1
     
     return tags_lists

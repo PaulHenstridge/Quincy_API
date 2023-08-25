@@ -53,7 +53,7 @@ def query_API(article):
         return response["choices"][0]["message"]["content"]
     except KeyError:
         print("Error: Unexpected response format:", response)
-        return None  # or some default value or behavior
+        return ""  #empty string returned if no response, empty tags list can be added, avoid Nonetype errors later in code
 
    
 
