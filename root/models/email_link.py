@@ -2,7 +2,7 @@ from mongoengine import Document, StringField, FloatField, DateTimeField, ListFi
 
 class EmailLink(Document):
         date = StringField()
-        date_time = DateTimeField()
+        date_time = DateTimeField(null=True)
         description = StringField()
         link = StringField()
         tags = ListField()

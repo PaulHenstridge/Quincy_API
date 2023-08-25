@@ -4,6 +4,16 @@ from .scrape_content import scrape_content
 from .query_api import query_API
 from ..db.update_db import update_links_collection
 
+dead_link =  {
+                "date": "",
+                "date_time":None,
+                "tags":[],
+                "description": "dead link",
+                "link": "",
+                "length": "",
+                "length_mins": 0  
+            }
+
 #tiktoken used to count tokems
 enc = tiktoken.encoding_for_model("gpt-3.5-turbo")
 
@@ -43,17 +53,16 @@ def add_content_tags(link_data):
 
             print(AI_response)
 
-            #convert to list
+            # convert to list
             tag_list = [keyword.strip() for keyword in AI_response.split(',')]
-            # add to dictionary
-            #link["tags"] = tag_list
-            tags_lists.append(tag_list)  # redundant?
-    ####   here at this point     ####   pass link_data and tag_list tp update_db(), get it saved immediately
+
+            # pass link_data and tag_list to update() get it saved immediately
             update_links_collection(link, tag_list)
             print(f"link {count} of {len(link_data)} saved")
             count+=1
         else:
-            print(f"link {count} of {len(link_data)}  cannot be reached")
+            dead_link["link"] = "None"
+            update_links_collection(dead_link, [])
+            print(f"link {count} of {len(link_data)}  was dead")
             count+=1
-    
-    return tags_lists
+ 
