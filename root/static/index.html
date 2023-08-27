@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quincy API - An API that's worth your time</title>
 
-    <link rel="stylesheet" href="/static/index.css">
+    <link rel="stylesheet" href="static/index.css">
 </head>
 <body>
 
@@ -34,15 +34,31 @@
     </article>
 
     <article>
-        <h5>Find by search term</h5>
+        <h5>Search description text</h5>
         <p>returns a json object containing all links where search term is in the description</p>
         <div class="url-bar">
-            <button id="search-descrip-btn">Test endpont</button> <span> /links/search?term=<input id="search-input" type="text" /></span>
+            <button id="search-descrip-btn">Test endpont</button> <span> /links/search?term=<input id="search-descrip-input" type="text" /></span>
+        </div>
+    </article>
+
+    <article>
+        <h5>Search by content tag</h5>
+        <p>returns a json object containing all links where search term is in the list of content tags</p>
+        <div class="url-bar">
+            <button id="search-tags-btn">Test endpont</button> <span> /links/search?tag=<input id="search-tags-input" type="text" /></span>
+        </div>
+    </article>
+
+    <article>
+        <h5>Search within content tags</h5>
+        <p>returns a json object containing all links where search term is contained within a content tag</p>
+        <div class="url-bar">
+            <button id="search-tags-partial-btn">Test endpont</button> <span> /links/search?term=<input id="search-tags-partial-input" type="text" /></span>
         </div>
     </article>
 </main>
 
 
-    <script src="/static/index.js"></script>
+    <script src="static/index.js"></script>
 </body>
 </html>
