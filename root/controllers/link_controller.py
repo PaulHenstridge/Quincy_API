@@ -91,11 +91,13 @@ def search_links_by_tag_partial():
     return jsonify(links_list)
 
 
-# search by a list of tags ( make GET req to /links/search_by_tag_list?tags=tag1,tag2,tag3  )
-@link_blueprint.route('/links/search_by_tag_list')
+# search links with any from a given list of tags ( make GET req to /links/search_by_tag_list?tags=tag1,tag2,tag3  )
+@link_blueprint.route('/links/search_by_tags_list')
 def search_by_tags_list():
     tags_string = request.args.get('tags', '')
-    tags_to_search = tags_string.split(',')
+    # split and remove any empty strings
+    tags_to_search = [tag.strip() for tag in tags_string.split(',')]
+    print("searching tags:", tags_to_search)
     # Use the __in operator to match any of the tags in the list
     matching_links = EmailLink.objects(tags__in=tags_to_search)
     links_list = [{
@@ -104,5 +106,27 @@ def search_by_tags_list():
             'length': link.length,
               'description': link.description
               } for link in matching_links]
+    
+    return jsonify(links_list)
+
+
+# search links with all from a given list of tags ( make GET req to /links/search_by_tag_list_all?tags=tag1,tag2,tag3  )
+@link_blueprint.route('/links/search_by_tags_list_all')
+def search_by_tags_list_all():
+    tags_string = request.args.get('tags', '')
+    # split and remove any empty strings
+    tags_to_search = [tag.strip() for tag in tags_string.split(',')]
+    print("searching tags:", tags_to_search)
+    # Use the __in operator to match any of the tags in the list
+    matching_links_any = EmailLink.objects(tags__in=tags_to_search)
+    # use python all() to return links where all tags are present
+    matching_links_all = [link for link in matching_links_any if all(tag in link.tags for tag in tags_to_search)]
+
+    links_list = [{
+        'date': link.date,
+          'link': link.link,
+            'length': link.length,
+              'description': link.description
+              } for link in matching_links_all]
     
     return jsonify(links_list)
