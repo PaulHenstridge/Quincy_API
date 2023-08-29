@@ -3,7 +3,7 @@ import os
 import sys
 
 from .utils.data_helpers.get_data import get_data
-from .controllers import link_controller
+from .controllers import link_controller, quote_controller
 
 
 def create_app(config=None):
@@ -19,5 +19,6 @@ def create_app(config=None):
     
     # Register blueprints, extensions, etc. here
     app.register_blueprint(link_controller.link_blueprint)
+    app.register_blueprint(quote_controller.quote_blueprint)
 
     return app
