@@ -21,13 +21,27 @@ def index():
 #get all links
 @link_blueprint.route('/links')
 def get_all_links():
-    all_links = EmailLink.objects()
+    start_date = request.args.get('start_date', None)
+    end_date = request.args.get('end_date', None)
+    min_length = request.args.get('min_length', None)
+    max_length = request.args.get('max_length', None)
+
+
+    query_set = EmailLink.objects()
+    # apply filters
+    query_set, error = apply_filters(query_set, start_date, end_date, min_length, max_length)
+
+    if error:
+        return jsonify({"error": error}), 400
+    
+    matching_links = list(query_set)
+    
     links_list = [{
         'date': link.date,
         'link': link.link,
         'length': link.length,
         'description': link.description
-    } for link in all_links]
+    } for link in matching_links]
 
     return jsonify(links_list)
 
@@ -36,8 +50,19 @@ def get_all_links():
 # get a random link
 @link_blueprint.route('/links/random')
 def get_random_link():
-    links_list = list(EmailLink.objects())
-    random_link = sample(links_list, 1)[0]
+    start_date = request.args.get('start_date', None)
+    end_date = request.args.get('end_date', None)
+    min_length = request.args.get('min_length', None)
+    max_length = request.args.get('max_length', None)
+
+    query_set = EmailLink.objects()
+    # apply filters
+    query_set, error = apply_filters(query_set, start_date, end_date, min_length, max_length)
+
+    if error:
+        return jsonify({"error": error}), 400
+    
+    random_link = sample(list(query_set), 1)[0]
     link_details = {
         'date': random_link.date,
         'link': random_link.link,
@@ -81,7 +106,22 @@ def search_links():
 @link_blueprint.route('/links/search_by_tag')
 def search_links_by_tag():
     tag_to_search = request.args.get('tag', '')
-    matching_links = EmailLink.objects(tags__iexact=tag_to_search)
+    start_date = request.args.get('start_date', None)
+    end_date = request.args.get('end_date', None)
+    min_length = request.args.get('min_length', None)
+    max_length = request.args.get('max_length', None)
+
+
+    query_set = EmailLink.objects(tags__iexact=tag_to_search)
+
+     # apply filters
+    query_set, error = apply_filters(query_set, start_date, end_date, min_length, max_length)
+
+    if error:
+        return jsonify({"error": error}), 400
+    
+    matching_links = list(query_set)
+
     links_list = [{
         'date': link.date,
           'link': link.link,
@@ -95,7 +135,21 @@ def search_links_by_tag():
 @link_blueprint.route('/links/search_by_tag_partial')
 def search_links_by_tag_partial():
     term_to_search = request.args.get('term', '')
-    matching_links = EmailLink.objects(tags__icontains=term_to_search)
+    start_date = request.args.get('start_date', None)
+    end_date = request.args.get('end_date', None)
+    min_length = request.args.get('min_length', None)
+    max_length = request.args.get('max_length', None)
+
+    query_set = EmailLink.objects(tags__icontains=term_to_search)
+    
+         # apply filters
+    query_set, error = apply_filters(query_set, start_date, end_date, min_length, max_length)
+
+    if error:
+        return jsonify({"error": error}), 400
+    
+    matching_links = list(query_set)
+
     links_list = [{
         'date': link.date,
           'link': link.link,
@@ -109,11 +163,26 @@ def search_links_by_tag_partial():
 @link_blueprint.route('/links/search_by_tags_list')
 def search_by_tags_list():
     tags_string = request.args.get('tags', '')
+    start_date = request.args.get('start_date', None)
+    end_date = request.args.get('end_date', None)
+    min_length = request.args.get('min_length', None)
+    max_length = request.args.get('max_length', None)
+
     # split and remove any empty strings
     tags_to_search = [tag.strip() for tag in tags_string.split(',')]
     print("searching tags:", tags_to_search)
+
     # Use the __in operator to match any of the tags in the list
-    matching_links = EmailLink.objects(tags__in=tags_to_search)
+    query_set = EmailLink.objects(tags__in=tags_to_search)
+
+            # apply filters
+    query_set, error = apply_filters(query_set, start_date, end_date, min_length, max_length)
+
+    if error:
+        return jsonify({"error": error}), 400
+    
+    matching_links = list(query_set)
+
     links_list = [{
         'date': link.date,
           'link': link.link,
@@ -128,19 +197,30 @@ def search_by_tags_list():
 @link_blueprint.route('/links/search_by_tags_list_all')
 def search_by_tags_list_all():
     tags_string = request.args.get('tags', '')
+    start_date = request.args.get('start_date', None)
+    end_date = request.args.get('end_date', None)
+    min_length = request.args.get('min_length', None)
+    max_length = request.args.get('max_length', None)
+
     # split and remove any empty strings
     tags_to_search = [tag.strip() for tag in tags_string.split(',')]
     print("searching tags:", tags_to_search)
     # Use the __in operator to match any of the tags in the list
-    matching_links_any = EmailLink.objects(tags__in=tags_to_search)
-    # use python all() to return links where all tags are present
-    matching_links_all = [link for link in matching_links_any if all(tag in link.tags for tag in tags_to_search)]
+    query_set = EmailLink.objects(tags__in=tags_to_search)
+            # apply filters
+    query_set, error = apply_filters(query_set, start_date, end_date, min_length, max_length)
+ 
+    if error:
+        return jsonify({"error": error}), 400
+    
+        # use python all() to return links where all tags are present
+    matching_links = [link for link in query_set if all(tag in link.tags for tag in tags_to_search)]
 
     links_list = [{
         'date': link.date,
           'link': link.link,
             'length': link.length,
               'description': link.description
-              } for link in matching_links_all]
+              } for link in matching_links]
     
     return jsonify(links_list)
