@@ -5,6 +5,8 @@ const searchTagsBtn = document.querySelector('#search-tags-btn')
 const searchTagsPartialBtn = document.querySelector('#search-tags-partial-btn')
 const searchTagsListBtn = document.querySelector('#search-tags-list-btn')
 const searchTagsListAllBtn = document.querySelector('#search-tags-list-all-btn')
+const toggleFilterBtn = document.querySelector('#toggle-filters')
+const filterOptions = document.querySelector('.filter-options')
 
 getAllBtn.addEventListener('click', () => {
     fetch('/links')
@@ -110,3 +112,9 @@ searchTagsListAllBtn.addEventListener('click', () => {
         console.error("Error fetching search results:", error);
       });
 })
+
+
+toggleFilterBtn.addEventListener('click', e => {
+  filterOptions.classList.toggle('hidden')
+  }
+)

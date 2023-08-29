@@ -3,6 +3,7 @@ from mongoengine import Document, StringField, connect
 from random import sample
 
 from ..models.email_link import EmailLink
+from ..utils.route_helpers.filter_db_results import apply_filters
 
 # Create a Blueprint instance
 link_blueprint = Blueprint('link_controller', __name__)
@@ -51,7 +52,20 @@ def get_random_link():
 @link_blueprint.route('/links/search')
 def search_links():
     search_term = request.args.get('term', '') 
-    matching_links = EmailLink.objects(description__icontains=search_term)
+    start_date = request.args.get('start_date', None)
+    end_date = request.args.get('end_date', None)
+    min_length = request.args.get('min_length', None)
+    max_length = request.args.get('max_length', None)
+
+    query_set = EmailLink.objects(description__icontains=search_term)
+
+    # apply filters
+    query_set, error = apply_filters(query_set, start_date, end_date, min_length, max_length)
+
+    if error:
+        return jsonify({"error": error}), 400
+    
+    matching_links = list(query_set)
 
     links_list = [{
         'date': link.date,

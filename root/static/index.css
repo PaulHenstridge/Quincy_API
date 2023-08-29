@@ -28,3 +28,11 @@ main > article {
 main >h2 {
     margin-top:0;
 }
+
+
+
+
+
+.hidden{
+    display:none;
+}

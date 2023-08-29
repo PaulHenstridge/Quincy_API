@@ -2,7 +2,7 @@ import time
 import tiktoken
 from .scrape_content import scrape_content
 from .query_api import query_API
-from ..db.update_db import update_links_collection
+from ...db.update_db import update_links_collection
 
 dead_link =  {
                 "date": "",

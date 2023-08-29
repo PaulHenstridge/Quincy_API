@@ -1,5 +1,5 @@
-from ..models.email_link import EmailLink
-from ..models.quote import Quote
+from ...models.email_link import EmailLink
+from ...models.quote import Quote
 
 def filter_unprocessed_links(link_data):
     unprocessed_links = []

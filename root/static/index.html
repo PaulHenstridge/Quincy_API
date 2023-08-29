@@ -12,9 +12,20 @@
 <header>
     <h1>Quincy API</h1>
     <h4>An API that is worth your time</h4>
+    <button id="toggle-filters">Toggle Filters</button>
 </header>
 
 <main>
+    <div class="filter-options hidden">
+        <label for="start-date">Start Date</label>
+        <input type="text" id="start-date" placeholder="MM-YY">
+        <label for="end-date">End Date</label>
+        <input type="text" id="end-date" placeholder="MM-YY">
+        <label for="min-length">Min Length</label>
+        <input type="text" id="min-length" placeholder="length in mins">
+        <label for="max-length">Max Length</label>
+        <input type="text" id="max-length" placeholder="length in mins">
+    </div>
     <h2>Endpoints</h2>
 
     <article>
@@ -37,7 +48,8 @@
         <h5>Search description text</h5>
         <p>returns a json object containing all links where search term is in the description</p>
         <div class="url-bar">
-            <button id="search-descrip-btn">Test endpont</button> <span> /links/search?term=<input id="search-descrip-input" type="text" /></span>
+            <button id="search-descrip-btn">Test endpont</button> 
+            <span> /links/search?term=<input id="search-descrip-input" type="text" /></span>
         </div>
     </article>
 

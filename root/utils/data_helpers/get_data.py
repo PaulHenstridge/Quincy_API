@@ -3,8 +3,8 @@ from datetime import datetime
 
 from .query_api import query_API
 from .add_content_tags import add_content_tags
-from ..utils.filter_unprocessed import filter_unprocessed_links, filter_unprocessed_quotes
-from ..db.update_db import update_quotes_collection
+from .filter_unprocessed import filter_unprocessed_links, filter_unprocessed_quotes
+from ...db.update_db import update_quotes_collection
 
 
 #this func allows the date to be parsed in either abbreviated or full word format

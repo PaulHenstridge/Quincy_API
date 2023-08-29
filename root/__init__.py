@@ -2,7 +2,7 @@ from flask import Flask
 import os
 import sys
 
-from .utils.get_data import get_data
+from .utils.data_helpers.get_data import get_data
 from .controllers import link_controller
 
 
