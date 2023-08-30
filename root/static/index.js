@@ -11,6 +11,7 @@ const filterStart = document.querySelector('#start-date')
 const filterEnd = document.querySelector('#end-date')
 const filterMin = document.querySelector('#min-length')
 const filterMax = document.querySelector('#max-length')
+const clearFiltersBtn = document.querySelector('#clear-filters')
 
 function getFilterParams(){
   const params = {
@@ -151,7 +152,14 @@ searchTagsListAllBtn.addEventListener('click', () => {
 })
 
 
-toggleFilterBtn.addEventListener('click', e => {
+toggleFilterBtn.addEventListener('click', () => {
   filterOptions.classList.toggle('hidden')
   }
 )
+
+clearFiltersBtn.addEventListener('click', () => {
+    filterStart.value = ''
+    filterEnd.value = ''
+    filterMin.value = ''
+    filterMax.value = ''
+})
