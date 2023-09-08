@@ -34,6 +34,7 @@ button{
     padding: 0.4rem 0.8rem;
     border-radius: 12%;
     color: #0b0a23;
+    cursor: pointer;
 }
 
 input{
@@ -86,7 +87,6 @@ main > article {
 main > article > h5 {
     font-size: 1.2rem;
     margin: 0;
-    text-decoration: underline;
     color: #99c9ff;
 }
 
@@ -105,7 +105,7 @@ pre{
 }
 
 .clear-btn {
-    position: absolute;
+    position: sticky;
     z-index: 10;
     bottom: 1rem;
     right: 1rem;

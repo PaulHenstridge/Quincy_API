@@ -40,126 +40,111 @@ getAllBtn.addEventListener('click', (event) => {
   const displayId = event.currentTarget.getAttribute('data-result-id')
   const displayElement = document.getElementById(displayId)
 
-  fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-        displayElement.innerText = JSON.stringify(data, null, 2)
-        displayElement.classList.remove('hidden')
-        const clearBtn = document.createElement('button')
-        clearBtn.innerText = 'Hide'
-        clearBtn.classList.add('clear-btn')
-        clearBtn.addEventListener('click', event => {
-          displayElement.classList.add('hidden')
-        })
-        displayElement.appendChild(clearBtn)
-      })
-      .catch(error => {
-        console.error("Error fetching all links:", error)
-      });
+  fetchAndDisplay(url, displayElement)
 })
 
 
-getRandomBtn.addEventListener('click', () => {
+getRandomBtn.addEventListener('click', (event) => {
     const filterParams = getFilterParams()
     const params = `?${filterParams.slice(1)}`
     const url = `/links/random${params}`
     console.log(url)
-    fetch(url)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data)
-        // display data somewhere
-      })
-      .catch(error => {
-        console.error("Error fetching random link:", error)
-      });
+    const displayId = event.currentTarget.getAttribute('data-result-id')
+    const displayElement = document.getElementById(displayId)
+
+    fetchAndDisplay(url, displayElement)
+
 })
 
 
-searchDescripBtn.addEventListener('click', () => {
+searchDescripBtn.addEventListener('click', (event) => {
     const searchTerm = document.querySelector('#search-descrip-input').value
     const filterParams = getFilterParams()
-    const searchUrl = `/links/search?term=${encodeURIComponent(searchTerm)}${filterParams}`
-    console.log(searchUrl)
+    const url = `/links/search?term=${encodeURIComponent(searchTerm)}${filterParams}`
+    console.log(url)
+    const displayId = event.currentTarget.getAttribute('data-result-id')
+    const displayElement = document.getElementById(displayId)
 
-    fetch(searchUrl)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        // display data somewhere
-      })
-      .catch(error => {
-        console.error("Error fetching search results:", error)
-      });
+    fetchAndDisplay(url, displayElement)
 })
 
 
-searchTagsBtn.addEventListener('click', () => {
+searchTagsBtn.addEventListener('click', (event) => {
     const searchTerm = document.querySelector('#search-tags-input').value;
     const filterParams = getFilterParams()
-    const searchUrl = `/links/search_by_tag?tag=${encodeURIComponent(searchTerm)}${filterParams}`
-    console.log(searchUrl)
-    fetch(searchUrl)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        // display data somewhere
-      })
-      .catch(error => {
-        console.error("Error fetching search results:", error)
-      });
+    const url = `/links/search_by_tag?tag=${encodeURIComponent(searchTerm)}${filterParams}`
+    console.log(url)
+    const displayId = event.currentTarget.getAttribute('data-result-id')
+    const displayElement = document.getElementById(displayId)
+
+    fetchAndDisplay(url, displayElement)
 })
 
 
-searchTagsPartialBtn.addEventListener('click', () => {
+searchTagsPartialBtn.addEventListener('click', (event) => {
     const searchTerm = document.querySelector('#search-tags-partial-input').value;
     const filterParams = getFilterParams()
-    const searchUrl = `/links/search_by_tag_partial?term=${encodeURIComponent(searchTerm)}${filterParams}`
-    console.log(searchUrl)
-    fetch(searchUrl)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        // display data somewhere
-      })
-      .catch(error => {
-        console.error("Error fetching search results:", error)
-      });
+    const url = `/links/search_by_tag_partial?term=${encodeURIComponent(searchTerm)}${filterParams}`
+    console.log(url)
+    const displayId = event.currentTarget.getAttribute('data-result-id')
+    const displayElement = document.getElementById(displayId)
+
+    fetchAndDisplay(url, displayElement)
+
+    // fetch(searchUrl)
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     console.log(data);
+    //     // display data somewhere
+    //   })
+    //   .catch(error => {
+    //     console.error("Error fetching search results:", error)
+    //   });
 })
 
 
-searchTagsListBtn.addEventListener('click', () => {
+searchTagsListBtn.addEventListener('click', (event) => {
     const searchTerm = document.querySelector('#search-tags-list-input').value;
     const filterParams = getFilterParams()
-    const searchUrl = `/links/search_by_tags_list?tags=${encodeURIComponent(searchTerm)}${filterParams}`
-    console.log(searchUrl)
-    fetch(searchUrl)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        // display data somewhere
-      })
-      .catch(error => {
-        console.error("Error fetching search results:", error)
-      });
+    const url = `/links/search_by_tags_list?tags=${encodeURIComponent(searchTerm)}${filterParams}`
+    console.log(url)
+    const displayId = event.currentTarget.getAttribute('data-result-id')
+    const displayElement = document.getElementById(displayId)
+
+    fetchAndDisplay(url, displayElement)
+
+    // fetch(searchUrl)
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     console.log(data);
+    //     // display data somewhere
+    //   })
+    //   .catch(error => {
+    //     console.error("Error fetching search results:", error)
+    //   });
 })
 
 
-searchTagsListAllBtn.addEventListener('click', () => {
+searchTagsListAllBtn.addEventListener('click', (event) => {
     const searchTerm = document.querySelector('#search-tags-list-all-input').value;
     const filterParams = getFilterParams()
-    const searchUrl = `/links/search_by_tags_list_all?tags=${encodeURIComponent(searchTerm)}${filterParams}`
-    console.log(searchUrl)
-    fetch(searchUrl)
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        // display data somewhere
-      })
-      .catch(error => {
-        console.error("Error fetching search results:", error)
-      });
+    const url = `/links/search_by_tags_list_all?tags=${encodeURIComponent(searchTerm)}${filterParams}`
+    console.log(url)
+    const displayId = event.currentTarget.getAttribute('data-result-id')
+    const displayElement = document.getElementById(displayId)
+
+    fetchAndDisplay(url, displayElement)
+
+
+    // fetch(searchUrl)
+    //   .then(response => response.json())
+    //   .then(data => {
+    //     console.log(data);
+    //     // display data somewhere
+    //   })
+    //   .catch(error => {
+    //     console.error("Error fetching search results:", error)
+    //   });
 })
 
 
@@ -174,3 +159,24 @@ clearFiltersBtn.addEventListener('click', () => {
     filterMin.value = ''
     filterMax.value = ''
 })
+
+function fetchAndDisplay(url, displayElement){
+  fetch(url)
+  .then(response => response.json())
+  .then(data => {
+    console.log(data)
+    displayElement.innerText = JSON.stringify(data, null, 2)
+    displayElement.classList.remove('hidden')
+    
+    const clearBtn = document.createElement('button')
+    clearBtn.innerText = 'Hide'
+    clearBtn.classList.add('clear-btn')
+    clearBtn.addEventListener('click', event => {
+      displayElement.classList.add('hidden')
+    })
+    displayElement.appendChild(clearBtn)
+  })
+  .catch(error => {
+    console.error("Error fetching all links:", error)
+  });
+}
