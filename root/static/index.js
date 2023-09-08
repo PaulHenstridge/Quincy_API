@@ -32,16 +32,27 @@ function getFilterParams(){
 }
 
 
-getAllBtn.addEventListener('click', () => {
+getAllBtn.addEventListener('click', (event) => {
   const filterParams = getFilterParams()
   const params = `?${filterParams.slice(1)}`
   const url = `/links${params}`
   console.log(url)
+  const displayId = event.currentTarget.getAttribute('data-result-id')
+  const displayElement = document.getElementById(displayId)
+
   fetch(url)
       .then(response => response.json())
       .then(data => {
         console.log(data)
-        // display data somewhere
+        displayElement.innerText = JSON.stringify(data, null, 2)
+        displayElement.classList.remove('hidden')
+        const clearBtn = document.createElement('button')
+        clearBtn.innerText = 'Hide'
+        clearBtn.classList.add('clear-btn')
+        clearBtn.addEventListener('click', event => {
+          displayElement.classList.add('hidden')
+        })
+        displayElement.appendChild(clearBtn)
       })
       .catch(error => {
         console.error("Error fetching all links:", error)
@@ -61,7 +72,7 @@ getRandomBtn.addEventListener('click', () => {
         // display data somewhere
       })
       .catch(error => {
-        console.error("Error fetching all links:", error)
+        console.error("Error fetching random link:", error)
       });
 })
 

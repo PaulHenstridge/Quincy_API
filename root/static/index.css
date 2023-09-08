@@ -1,8 +1,6 @@
 * {
     box-sizing: border-box;
     text-decoration: none;
-    /* border: none; */
-    /* margin: 0; */
     color:#f5f6f7;
     font-family: 'Lato', sans-serif;
 
@@ -90,6 +88,28 @@ main > article > h5 {
     margin: 0;
     text-decoration: underline;
     color: #99c9ff;
+}
+
+pre{
+    position: relative;
+    font-family: "Menlo";
+    font-size: 0.8rem;
+    width:100%;
+    margin:auto;
+    height: 25vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    background-color: #0b0a23;
+    color: #00471b;
+}
+
+.clear-btn {
+    position: absolute;
+    z-index: 10;
+    bottom: 1rem;
+    right: 1rem;
+    float: right;
 }
 
 .hidden{
