@@ -63,12 +63,12 @@ def get_random_link():
         return jsonify({"error": error}), 400
     
     random_link = sample(list(query_set), 1)[0]
-    link_details = {
+    link_details = [{
         'date': random_link.date,
         'link': random_link.link,
         'length': random_link.length,
         'description': random_link.description
-    }
+    }]
     return jsonify(link_details)
 
 

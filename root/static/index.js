@@ -81,26 +81,16 @@ searchTagsBtn.addEventListener('click', (event) => {
 })
 
 
-searchTagsPartialBtn.addEventListener('click', (event) => {
-    const searchTerm = document.querySelector('#search-tags-partial-input').value;
-    const filterParams = getFilterParams()
-    const url = `/links/search_by_tag_partial?term=${encodeURIComponent(searchTerm)}${filterParams}`
-    console.log(url)
-    const displayId = event.currentTarget.getAttribute('data-result-id')
-    const displayElement = document.getElementById(displayId)
+// searchTagsPartialBtn.addEventListener('click', (event) => {
+//     const searchTerm = document.querySelector('#search-tags-partial-input').value;
+//     const filterParams = getFilterParams()
+//     const url = `/links/search_by_tag_partial?term=${encodeURIComponent(searchTerm)}${filterParams}`
+//     console.log(url)
+//     const displayId = event.currentTarget.getAttribute('data-result-id')
+//     const displayElement = document.getElementById(displayId)
 
-    fetchAndDisplay(url, displayElement)
-
-    // fetch(searchUrl)
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     console.log(data);
-    //     // display data somewhere
-    //   })
-    //   .catch(error => {
-    //     console.error("Error fetching search results:", error)
-    //   });
-})
+//     fetchAndDisplay(url, displayElement)
+// })
 
 
 searchTagsListBtn.addEventListener('click', (event) => {
@@ -112,16 +102,6 @@ searchTagsListBtn.addEventListener('click', (event) => {
     const displayElement = document.getElementById(displayId)
 
     fetchAndDisplay(url, displayElement)
-
-    // fetch(searchUrl)
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     console.log(data);
-    //     // display data somewhere
-    //   })
-    //   .catch(error => {
-    //     console.error("Error fetching search results:", error)
-    //   });
 })
 
 
@@ -134,17 +114,6 @@ searchTagsListAllBtn.addEventListener('click', (event) => {
     const displayElement = document.getElementById(displayId)
 
     fetchAndDisplay(url, displayElement)
-
-
-    // fetch(searchUrl)
-    //   .then(response => response.json())
-    //   .then(data => {
-    //     console.log(data);
-    //     // display data somewhere
-    //   })
-    //   .catch(error => {
-    //     console.error("Error fetching search results:", error)
-    //   });
 })
 
 
@@ -165,8 +134,13 @@ function fetchAndDisplay(url, displayElement){
   .then(response => response.json())
   .then(data => {
     console.log(data)
+    console.log( displayElement.parentNode)
     displayElement.innerText = JSON.stringify(data, null, 2)
     displayElement.classList.remove('hidden')
+
+    const count = document.createElement('span')
+    count.innerText = `${data.length} ${data.length>1? 'links' : 'link'} found`
+    displayElement.parentNode.appendChild(count)
     
     const clearBtn = document.createElement('button')
     clearBtn.innerText = 'Hide'
