@@ -22,14 +22,19 @@ Quincy API is a Flask-based web application that provides a suite of endpoints f
 - OpenAI GPT-3.5turbo
 - HTML, CSS, JavaScript
 
-## Endpoints
+## Link Endpoints
 
 - **`GET /links`**: Fetch all links.
 - **`GET /links/random`**: Fetch a random link.
 - **`GET /links/search?term=<SEARCH_TERM>`**: Search links by description.
 - **`GET /links/search_by_tag?tag=<TAG>`**: Search links by tag.
-- **`GET /links/search_by_tags_list?tags=<TAG1,TAG2,...>`**: Search links by a list of tags.
-- _(Additional endpoints and their details can be found in the API documentation.)_
+- **`GET /links/search_by_tags_list?tags=<TAG1,TAG2,...>`**: Search for links containing ANY provided tag.
+- **`GET /links/search_by_tags_lis_allt?tags=<TAG1,TAG2,...>`**: Search for links containing ALL provided tags.
+
+## Quote Endpoints
+
+- **`GET /quotes`**: Fetch all quotes.
+- **`GET /quotes/random`**: Fetch a random quote.
 
 ## Acknowledgments
 
@@ -37,7 +42,7 @@ A huge shoutout to FreeCodeCamp and Quincy Larson for making all the data availa
 
 ## What I Learned
 
-This project served as an excellent platform for diving deeper into Python development post-bootcamp. It provided an opportunity to explore Python's robust ecosystem, experiment with Flask and MongoDB, and understand the nuances of building a RESTful API.Having a little bit more time to explore allowed for a more in-depth understanding of the underlying concepts, and a greater love for Python!
+This project served as an excellent platform for diving deeper into Python development post-bootcamp. It provided an opportunity to explore Python's robust ecosystem, experiment with Flask and MongoDB, and understand the nuances of building a RESTful API.  Having a little bit more time to explore allowed for a more in-depth understanding of the underlying concepts, and a greater love for Python!
 
 ## Future Plans
 
@@ -54,13 +59,18 @@ cd quincy_api
 pip install -r requirements.txt
 ```
 
-Run the Flask application:
-
+To replicate the DB in your local emvironment, start the app with the --fetch-data flag:
 ```bash
-flask run
+python3 run.py --fetch-data
+```
+Note:, In order to make API calls for tag generation, the above requires an OpenAI API key to be available within the environment.
+
+To run the app without fetching data
+```bash
+python3 run.py
 ```
 
-Open your browser and navigate to the local server to start exploring the API!
+Open your browser and navigate to  ```localhost:5000 ``` to start exploring the API!
 
 ## License
 
