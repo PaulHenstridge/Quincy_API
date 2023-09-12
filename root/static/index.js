@@ -5,6 +5,10 @@ const searchTagsBtn = document.querySelector('#search-tags-btn')
 const searchTagsPartialBtn = document.querySelector('#search-tags-partial-btn')
 const searchTagsListBtn = document.querySelector('#search-tags-list-btn')
 const searchTagsListAllBtn = document.querySelector('#search-tags-list-all-btn')
+
+const getAllQuoteBtn = document.querySelector('#get-all-quote-btn')
+const getRandomQuoteBtn = document.querySelector('#get-random-quote-btn')
+
 const toggleFilterBtn = document.querySelector('#toggle-filters')
 const filterOptions = document.querySelector('.filter-options')
 const filterStart = document.querySelector('#start-date')
@@ -115,6 +119,33 @@ searchTagsListAllBtn.addEventListener('click', (event) => {
 
     fetchAndDisplay(url, displayElement)
 })
+
+// Quote endpoints
+
+getAllQuoteBtn.addEventListener('click', (event) => {
+  const filterParams = getFilterParams()
+  const params = `?${filterParams.slice(1)}`
+  const url = `/quotes${params}`
+  console.log(url)
+  const displayId = event.currentTarget.getAttribute('data-result-id')
+  const displayElement = document.getElementById(displayId)
+
+  fetchAndDisplay(url, displayElement)
+})
+
+
+getRandomQuoteBtn.addEventListener('click', (event) => {
+    const filterParams = getFilterParams()
+    const params = `?${filterParams.slice(1)}`
+    const url = `/quotes/random${params}`
+    console.log(url)
+    const displayId = event.currentTarget.getAttribute('data-result-id')
+    const displayElement = document.getElementById(displayId)
+
+    fetchAndDisplay(url, displayElement)
+
+})
+
 
 
 toggleFilterBtn.addEventListener('click', () => {

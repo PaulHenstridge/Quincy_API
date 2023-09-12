@@ -43,8 +43,8 @@
     <h2>Endpoints</h2>
 
     <article>
-        <h5>Get All Articles </h5>
-        <p>Returns a json object containing all the links</p>
+        <h5>Get All Links </h5>
+        <p>Returns all the links</p>
         <div class="url-bar">
             <button id="get-all-btn" data-result-id="result-all">Test Endpont</button> <span> /links</span>
         </div>
@@ -52,8 +52,8 @@
     </article>
 
     <article>
-        <h5>Get a Random Article</h5>
-        <p>Returns one article at random</p>
+        <h5>Get a Random Link</h5>
+        <p>Returns one link at random</p>
         <div class="url-bar">
             <button id="get-random-btn" data-result-id="result-random">Test Endpont</button> <span>  /links/random</span>
         </div>
@@ -61,7 +61,7 @@
     </article>
 
     <article>
-        <h5>Search description text</h5>
+        <h5>Search Description Text</h5>
         <p>Returns all links where search term is in the description</p>
         <div class="url-bar">
             <button id="search-descrip-btn" data-result-id="result-descrip">Test Endpont</button> 
@@ -71,7 +71,7 @@
     </article>
 
     <article>
-        <h5>Search by content tag</h5>
+        <h5>Search by Content Tag</h5>
         <p>Returns  all links where search term is in the list of content tags</p>
         <div class="url-bar">
             <button id="search-tags-btn" data-result-id="result-tag">Test Endpont</button> <span> /links/search?tag=</span><input id="search-tags-input" type="text" />
@@ -89,7 +89,7 @@
     </article> -->
 
     <article>
-        <h5>Search for any of multiple tags</h5>
+        <h5>Search for Any of Multiple Tags</h5>
         <p>Returns all links where one or more searched term is in the list of content tags</p>
         <div class="url-bar">
             <button id="search-tags-list-btn" data-result-id="result-tags-any">Test Endpont</button> <span> /links/search?tags=</span><input id="search-tags-list-input" type="text" />
@@ -98,13 +98,34 @@
     </article>
 
     <article>
-        <h5>Search for all of multiple tags</h5>
+        <h5>Search for All of Multiple Tags</h5>
         <p>Returns all links where all searched terms are in the list of content tags</p>
         <div class="url-bar">
             <button id="search-tags-list-all-btn" data-result-id="result-tags-all">Test Endpont</button> <span> /links/search?tags=</span><input id="search-tags-list-all-input" type="text" />
         </div>
         <pre id="result-tags-all" class="hidden"></pre>
     </article>
+
+    <!-- quote endpoints -->
+
+    <article class="quote-endpoint">
+        <h5>Get All Quotes </h5>
+        <p>Returns a json object containing all the qoutes</p>
+        <div class="url-bar">
+            <button id="get-all-quote-btn" data-result-id="result-quote-all">Test Endpont</button> <span> /quotes</span>
+        </div>
+        <pre id="result-quote-all" class="hidden"></pre>
+    </article>
+
+    <article class="quote-endpoint">
+        <h5>Get a Random Quote</h5>
+        <p>Returns one quote at random</p>
+        <div class="url-bar">
+            <button id="get-random-quote-btn" data-result-id="result-quote-random">Test Endpont</button> <span>  /links/random</span>
+        </div>
+        <pre id="result-quote-random" class="hidden"></pre>
+    </article>
+
 </main>
 
 

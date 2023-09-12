@@ -50,9 +50,9 @@ def get_random_quote():
         return jsonify({"error": error}), 400
     
     quote = sample(list(query_set), 1)[0]
-    quote_details = {
+    quote_details = [{
         'date': quote.date,
         'quote': quote.quote,
         'quote_author': quote.quote_author
-    }
+    }]
     return jsonify(quote_details)
