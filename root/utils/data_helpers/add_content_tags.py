@@ -4,16 +4,6 @@ from .scrape_content import scrape_content
 from .query_api import query_API
 from ...db.update_db import update_links_collection
 
-dead_link =  {
-                "date": "",
-                "date_time":None,
-                "tags":[],
-                "description": "dead link",
-                "link": "",
-                "length": "",
-                "length_mins": 0  
-            }
-
 #tiktoken used to count tokems
 enc = tiktoken.encoding_for_model("gpt-3.5-turbo")
 
@@ -60,9 +50,3 @@ def add_content_tags(link_data):
             update_links_collection(link, tag_list)
             print(f"link {count} of {len(link_data)} saved")
             count+=1
-        else:
-            dead_link["link"] = "None"
-            update_links_collection(dead_link, [])
-            print(f"link {count} of {len(link_data)}  was dead")
-            count+=1
- 

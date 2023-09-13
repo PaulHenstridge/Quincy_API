@@ -3,14 +3,13 @@ from datetime import datetime
 
 from .query_api import query_API
 from .add_content_tags import add_content_tags
-from .filter_unprocessed import filter_unprocessed_links, filter_unprocessed_quotes
 from ...db.update_db import update_quotes_collection
 from ...models.email_link import EmailLink
 from ...models.quote import Quote
 
+data_url = "https://raw.githubusercontent.com/sourabh-joshi/awesome-quincy-larson-emails/main/emails.json"
 
-#this func allows the date to be parsed in either abbreviated or full word format
-# TODO - extract to helpers/utils folder
+# allowing the date to be parsed in either abbreviated or full word format
 def flexible_strptime(date_str):
     formats = ["%b %d, %Y", "%B %d, %Y"] 
     for format in formats:
@@ -21,11 +20,8 @@ def flexible_strptime(date_str):
     raise ValueError(f"time data {date_str!r} does not match any of the provided formats")
 
 
-
-def fetch_data():
-    response = requests.get(
-        "https://raw.githubusercontent.com/sourabh-joshi/awesome-quincy-larson-emails/main/emails.json"
-    )
+def fetch_data(url):
+    response = requests.get(url)
 
     if response.status_code == 200:
         return response.json()
@@ -33,42 +29,43 @@ def fetch_data():
         print(f"Error: {response.status_code}")
         return None
     
+
 def process_data(data): 
     quote_data = []
     link_data = []
    
-    # - TODO should probably filter at this point - if not in DB already then add to data.  consider refactor
     for email in data["emails"]:
-        # filter quotes here -  if not Quote.objects(date=email["date"]).first():
-        quote_data.append({
-            "date": email.get("date", None),
-            "date_time":flexible_strptime(email.get("date", "Jan 1 2000")),
-            "quote": email.get("quote", None),
-            "author": email.get("quote_author", None)
-        })
-
-        for link in email["links"]:
-             # filter links here -  if not EmailLink.objects(link=link["link"]).first():
-            link_data.append(
+        if not Quote.objects(date=email["date"]).first():
+            quote_data.append(
                 {
                     "date": email.get("date", None),
                     "date_time":flexible_strptime(email.get("date", "Jan 1 2000")),
-                    "tags":[],
-                    "description": link.get("description", None),
-                    "link": link.get("link", None),
-                    "length": link.get("time_duration", ".") + link.get("time_type", "."),
-                    "length_mins": float(link.get("time_duration", 0)) * (60 if link.get("time_type", None) == 'hours' else 1)  
+                    "quote": email.get("quote", None),
+                    "author": email.get("quote_author", None)
                 }
             )
-        
-    
-    # pass link/quote data in directly
-    # make changes when i can run data to test
-    # write some unit tests!!!!
 
-    unprocessed_quotes = filter_unprocessed_quotes(quote_data)
-    unprocessed_links = filter_unprocessed_links(link_data)
+        for link in email["links"]:
+            if link.get("link") and not EmailLink.objects(link=link["link"]).first():
 
-    update_quotes_collection(unprocessed_quotes)
-    add_content_tags(unprocessed_links)
+                link_data.append(
+                    {
+                        "date": email.get("date", None),
+                        "date_time":flexible_strptime(email.get("date", "Jan 1 2000")),
+                        "tags":[],
+                        "description": link.get("description", None),
+                        "link": link.get("link", None),
+                        "length": link.get("time_duration", ".") + link.get("time_type", "."),
+                        "length_mins": float(link.get("time_duration", 0)) * (60 if link.get("time_type", None) == 'hours' else 1)  
+                    }
+                )
+    return link_data, quote_data  
+
+def get_data():
+    data = fetch_data(data_url)  
+    if data:
+        link_data, quote_data = process_data(data)
+
+    update_quotes_collection(quote_data)
+    add_content_tags(link_data)
     
