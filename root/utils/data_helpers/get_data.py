@@ -5,6 +5,8 @@ from .query_api import query_API
 from .add_content_tags import add_content_tags
 from .filter_unprocessed import filter_unprocessed_links, filter_unprocessed_quotes
 from ...db.update_db import update_quotes_collection
+from ...models.email_link import EmailLink
+from ...models.quote import Quote
 
 
 #this func allows the date to be parsed in either abbreviated or full word format
@@ -20,30 +22,33 @@ def flexible_strptime(date_str):
 
 
 
-def get_data():
+def fetch_data():
     response = requests.get(
         "https://raw.githubusercontent.com/sourabh-joshi/awesome-quincy-larson-emails/main/emails.json"
     )
 
     if response.status_code == 200:
-        data = response.json()
+        return response.json()
     else:
         print(f"Error: {response.status_code}")
-
-
-
+        return None
+    
+def process_data(data): 
     quote_data = []
     link_data = []
    
     # - TODO should probably filter at this point - if not in DB already then add to data.  consider refactor
     for email in data["emails"]:
+        # filter quotes here -  if not Quote.objects(date=email["date"]).first():
         quote_data.append({
-        "date": email.get("date", None),
-        "date_time":flexible_strptime(email.get("date", "Jan 1 2000")),
-        "quote": email.get("quote", None),
-        "author": email.get("quote_author", None)
-    })
+            "date": email.get("date", None),
+            "date_time":flexible_strptime(email.get("date", "Jan 1 2000")),
+            "quote": email.get("quote", None),
+            "author": email.get("quote_author", None)
+        })
+
         for link in email["links"]:
+             # filter links here -  if not EmailLink.objects(link=link["link"]).first():
             link_data.append(
                 {
                     "date": email.get("date", None),
@@ -55,7 +60,12 @@ def get_data():
                     "length_mins": float(link.get("time_duration", 0)) * (60 if link.get("time_type", None) == 'hours' else 1)  
                 }
             )
+        
     
+    # pass link/quote data in directly
+    # make changes when i can run data to test
+    # write some unit tests!!!!
+
     unprocessed_quotes = filter_unprocessed_quotes(quote_data)
     unprocessed_links = filter_unprocessed_links(link_data)
 
