@@ -25,6 +25,7 @@ def update_quotes_collection(quote_data):
     for entry in quote_data:
         quote = Quote(
             date=entry["date"],
+            date_time=entry["date_time"],
             quote=entry["quote"],
             quote_author=entry["author"],
         )

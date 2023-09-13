@@ -39,6 +39,7 @@ def get_data():
     for email in data["emails"]:
         quote_data.append({
         "date": email.get("date", None),
+        "date_time":flexible_strptime(email.get("date", "Jan 1 2000")),
         "quote": email.get("quote", None),
         "author": email.get("quote_author", None)
     })
@@ -58,6 +59,6 @@ def get_data():
     unprocessed_quotes = filter_unprocessed_quotes(quote_data)
     unprocessed_links = filter_unprocessed_links(link_data)
 
-    update_quotes_collection(quote_data)
+    update_quotes_collection(unprocessed_quotes)
     add_content_tags(unprocessed_links)
     
