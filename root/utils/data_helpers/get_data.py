@@ -7,6 +7,8 @@ from ...db.update_db import update_quotes_collection
 from ...models.email_link import EmailLink
 from ...models.quote import Quote
 
+# from .test_data import data
+
 data_url = "https://raw.githubusercontent.com/sourabh-joshi/awesome-quincy-larson-emails/main/emails.json"
 
 # allowing the date to be parsed in either abbreviated or full word format
@@ -28,7 +30,6 @@ def fetch_data(url):
     else:
         print(f"Error: {response.status_code}")
         return None
-    
 
 def process_data(data): 
     quote_data = []

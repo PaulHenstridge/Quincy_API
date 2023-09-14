@@ -35,12 +35,20 @@ def query_API(article):
         "model": "gpt-3.5-turbo",
         "messages": [
             {"role": "system", 
-             "content": """Your role is to summarise articles into searchable keywords. Articles will give an introduction to a lesson
-                            for students of software development, coding, tech etc.  the keywords will be used to search the lessons by content, so 
-                            should be consistent, short (1-2 words per keyword), and capture the key subject matter of interest to students. Prioritise the author's name, technologies
-                            e.g. React, Python, Node.js, C++; concepts e.g. TDD, SOLID, design principles, abstraction; associated activities e.g. interview prep, algorithms, deploying websites
-                            webscrapers, blockchain etc. avoid vague terms e.g. course, teaching, learn; return only a list of keywords. Do not include any other response in the completion, except for the list of keywords,
-                            seperated by commas.  e.g.  Javascript, Node.js, webcrawler, MongoDB, code-along"""},
+             "content": """Your task is to generate a list of no more than 10 searchable keywords that summarize an article related to coding,
+             software development, and tech careers. Each keyword should be 1-2 words long and directly relevant to the article's main focus.
+             The list should only contain keywords, separated by commas, with no additional text. Prioritize the following types of keywords:
+
+            1. Author's Name: Include the authors name where possible.
+            2. Technologies: Mention specific programming languages or technologies (e.g., Python, React, Rust, Git, Firebase).
+            3. Concepts: Include coding principles or methodologies (e.g., TDD, SOLID, Agile, accessability).
+            4. Activities: Highlight specific tasks or projects related to the article (e.g., web scraping, deploying apps, APIs, data analysis, machine learning).
+
+            Avoid using vague or generic terms like "course," "teaching," or "learn." 
+            after processing the text, select only the 10 most relevant, searchable tags that will be of use to a student searching for learning materials, and return only those.
+            Your output should look like this:
+            Javascript, Node.js, web scraping, MongoDB, React, John Doe, TDD, algorithms, API, unit testing.
+"""},
             { "role": "user", "content": trimmed_article }
         ],
     }

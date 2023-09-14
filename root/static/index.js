@@ -170,13 +170,16 @@ function fetchAndDisplay(url, displayElement){
   .then(response => response.json())
   .then(data => {
     console.log(data)
-    console.log( displayElement.parentNode)
-    displayElement.innerText = JSON.stringify(data, null, 2)
+    if (!data.length) {
+      displayElement.innerText = "  Sorry, no matches"
+    }else{
+          displayElement.innerText = JSON.stringify(data, null, 2)
+    }
     displayElement.classList.remove('hidden')
 
     const count = document.createElement('span')
     count.classList.add('count')
-    count.innerText = `${data.length} ${data.length>1? 'links' : 'link'} found`
+    count.innerText = `${data.length} ${data.length>1? 'results' : 'result'} found`
     displayElement.parentNode.appendChild(count)
     
     const clearBtn = document.createElement('button')

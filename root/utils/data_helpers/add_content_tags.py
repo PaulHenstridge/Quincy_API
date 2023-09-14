@@ -46,7 +46,9 @@ def add_content_tags(link_data):
             # convert to list
             tag_list = [keyword.strip() for keyword in AI_response.split(',')]
 
+
             # pass link_data and tag_list to update() get it saved immediately
-            update_links_collection(link, tag_list)
-            print(f"link {count} of {len(link_data)} saved")
-            count+=1
+
+            # update_links_collection(link, tag_list)
+            # print(f"link {count} of {len(link_data)} saved")
+            # count+=1
