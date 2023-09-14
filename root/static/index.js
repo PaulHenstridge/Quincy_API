@@ -161,6 +161,11 @@ clearFiltersBtn.addEventListener('click', () => {
 })
 
 function fetchAndDisplay(url, displayElement){
+
+  // removing the link count if still visible
+  let lastElement = displayElement.parentNode.lastElementChild
+  if(lastElement.classList.contains( 'count')) lastElement.innerText = ''
+
   fetch(url)
   .then(response => response.json())
   .then(data => {
@@ -170,6 +175,7 @@ function fetchAndDisplay(url, displayElement){
     displayElement.classList.remove('hidden')
 
     const count = document.createElement('span')
+    count.classList.add('count')
     count.innerText = `${data.length} ${data.length>1? 'links' : 'link'} found`
     displayElement.parentNode.appendChild(count)
     
@@ -178,6 +184,7 @@ function fetchAndDisplay(url, displayElement){
     clearBtn.classList.add('clear-btn')
     clearBtn.addEventListener('click', event => {
       displayElement.classList.add('hidden')
+      count.innerText = ''
     })
     displayElement.appendChild(clearBtn)
   })
