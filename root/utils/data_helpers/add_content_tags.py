@@ -8,13 +8,15 @@ from ...db.update_db import update_links_collection
 enc = tiktoken.encoding_for_model("gpt-3.5-turbo")
 
 def add_content_tags(link_data):
+    count = 0
+    dead_links_count = 0
+
     # adding rate limiter
     token_limit_per_minute = 90000
     tokens_this_minute = 0
     start_time = time.time()
     current_minute = int(time.time() // 60)
-    tags_lists = []
-    count = 1
+
     for link in link_data:
         article_text = scrape_content(link["link"])
         if article_text is not None:
@@ -41,14 +43,15 @@ def add_content_tags(link_data):
             tokens_this_minute += token_count
             AI_response = query_API(article_text)
 
-            print(AI_response)
-
             # convert to list
             tag_list = [keyword.strip() for keyword in AI_response.split(',')]
+            print(tag_list)
 
-
-            # pass link_data and tag_list to update() get it saved immediately
-
-            # update_links_collection(link, tag_list)
-            # print(f"link {count} of {len(link_data)} saved")
-            # count+=1
+            # pass link_data and tag_list to update() to be saved immediatel
+            update_links_collection(link, tag_list)
+            count+=1
+            print(f"link {count} of {len(link_data)} saved")
+        else: 
+            print("link not avaialable")
+            dead_links_count +=1
+            print("dead links: ", dead_links_count)
