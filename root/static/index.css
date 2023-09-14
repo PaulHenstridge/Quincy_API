@@ -25,6 +25,12 @@ header > h4 {
     margin-top: 0;
 }
 
+@media screen and (max-width:400px){
+    header > h1, header > h4 {
+        text-align: center;
+    }
+}
+
 header > button{
     margin-bottom: 2rem;
 }
@@ -86,16 +92,37 @@ main > article.quote-endpoint > pre {
 }
 
 .filter-options{
-    display: grid;
-    grid-template-columns:1fr 1fr;
-    grid-template-rows: 1fr 1fr 1fr;
-    width: 50%;
+    max-width: 30%;
     margin: 0 auto;
 }
 
+@media screen and (min-width:1366px){
+    .filter-options{
+        display: grid;
+        grid-template-columns:1fr;
+        grid-template-rows: 1fr 1fr 1fr;
+    }
+    .filter-options > .filterbox {
+        justify-content: space-around;
+    }
+}
+
+@media screen and (max-width:950px){
+    .filter-options{
+        max-width: 60%;
+    }
+}
+
+@media screen and (max-width:515px){
+    .filter-options{
+        max-width: 90%;
+    }
+}
+
+
 .filter-options > .filterbox {
     display:flex;
-    justify-content: space-between;
+    justify-content: space-around;
     padding:1rem;
     background-color: #2a2a40;
 }
@@ -114,8 +141,16 @@ main > article.quote-endpoint > pre {
     padding: 0.6rem 1.2rem;
 }
 
+@media screen and (max-width:668px){
+
+    .has-input * {
+        display:block;
+        margin-bottom: 0.5rem;
+    }
+}
+
 .url-bar > span {
-    margin: 0 0.25rem;
+    margin: 0.5 0.25rem;
 }
 
 pre{
