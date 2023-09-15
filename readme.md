@@ -2,7 +2,9 @@
 
 ## Overview
 
-Quincy API is a Flask-based web application that provides a suite of endpoints for querying a MongoDB database containing curated content from the FreeCodeCamp community, delivered since 2017 by emails from it's founder, Quincy Larson. This API allows uses AI to scrape and tag article content for advanced searching and filtering options based on description, tags, date, and length of content. The application also features a simple front-end built with HTML, CSS, and JavaScript for easy testing and demonstration of the API's capabilities.
+Quincy API is a Flask-based web application that provides a suite of endpoints for querying a MongoDB database containing curated content from the FreeCodeCamp community, delivered since 2017 by emails from it's founder, Quincy Larson. 
+As well as allowing for searches of the description contents, the application scrapes each article and uses AI to produce content tags for advanced searching.   It also offers filtering based on date and content duration.
+The application features a simple front-end built with HTML, CSS, and JavaScript for easy testing and demonstration of the API's capabilities.
 
 ## Features
 
@@ -42,7 +44,7 @@ A huge shoutout to FreeCodeCamp and Quincy Larson for making all the data availa
 
 ## What I Learned
 
-This project served as an excellent platform for diving deeper into Python development post-bootcamp. It provided an opportunity to explore Python's robust ecosystem, experiment with Flask and MongoDB, and understand the nuances of building a RESTful API.  Having a little bit more time to explore allowed for a more in-depth understanding of the underlying concepts, and a greater love for Python!
+This project was all about diving deeper into Python development post-bootcamp. It provided an opportunity to explore the Python ecosystem, experiment combining Flask and MongoDB, and integrating an AI language model while developing a RESTful API.  Having some more time to explore allowed for a more in-depth understanding of the underlying concepts, and an even greater appreciation for Python!
 
 ## Future Plans
 
@@ -51,7 +53,8 @@ This project served as an excellent platform for diving deeper into Python devel
 
 ## Get Started
 
-To get started with Quincy API, clone the repository and follow the installation guidelines in the documentation.
+To replicate the API in your local emvironment, you will need MongoDB, and an OpenAI API key.
+First, clone the repository,
 
 ```bash
 git clone git@github.com:PaulHenstridge/Quincy_API.git
@@ -59,12 +62,17 @@ cd quincy_api
 pip install -r requirements.txt
 ```
 
-To replicate the DB in your local emvironment, start the app with the --fetch-data flag:
+then create the database,
+```
+use quincy_api
+```
+
+next, start the app with the --fetch-data flag:
 ```bash
 python3 run.py --fetch-data
 ```
-Note:, In order to make API calls for tag generation, the above requires an OpenAI API key to be available within the environment.
 
+This will fetch, scrape and tag any article that is not already in the database.
 To run the app without fetching data
 ```bash
 python3 run.py
