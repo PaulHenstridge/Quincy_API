@@ -7,7 +7,7 @@ from root.models.email_link import EmailLink
 connect(db="quincy_api", host="localhost", port=27017)
 
 upper_char_limit = 45
-lower_char_limit = 28
+lower_char_limit = 30
 
 # remove tags generated that are longer than 30 characters
 
@@ -18,7 +18,7 @@ def sanitise_data():
 
     for document in EmailLink.objects:
         for tag in document.tags:
-            # if len(tag) > 40:
+            # if len(tag) > 30:
             #     cnt +=1
             #     print( cnt)
             tag_length = len(tag)

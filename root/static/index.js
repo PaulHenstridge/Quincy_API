@@ -85,16 +85,16 @@ searchTagsBtn.addEventListener('click', (event) => {
 })
 
 
-// searchTagsPartialBtn.addEventListener('click', (event) => {
-//     const searchTerm = document.querySelector('#search-tags-partial-input').value;
-//     const filterParams = getFilterParams()
-//     const url = `/links/search_by_tag_partial?term=${encodeURIComponent(searchTerm)}${filterParams}`
-//     console.log(url)
-//     const displayId = event.currentTarget.getAttribute('data-result-id')
-//     const displayElement = document.getElementById(displayId)
+searchTagsPartialBtn.addEventListener('click', (event) => {
+    const searchTerm = document.querySelector('#search-tags-partial-input').value;
+    const filterParams = getFilterParams()
+    const url = `/links/search_by_tag_partial?term=${encodeURIComponent(searchTerm)}${filterParams}`
+    console.log(url)
+    const displayId = event.currentTarget.getAttribute('data-result-id')
+    const displayElement = document.getElementById(displayId)
 
-//     fetchAndDisplay(url, displayElement)
-// })
+    fetchAndDisplay(url, displayElement)
+})
 
 
 searchTagsListBtn.addEventListener('click', (event) => {

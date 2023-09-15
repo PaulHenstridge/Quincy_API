@@ -1,5 +1,6 @@
 from flask import jsonify, request, send_from_directory, Blueprint, current_app
 from mongoengine import Document, StringField, connect
+from mongoengine.queryset.visitor import Q
 from random import sample
 
 from ..models.email_link import EmailLink
@@ -140,7 +141,8 @@ def search_links_by_tag_partial():
     min_length = request.args.get('min_length', None)
     max_length = request.args.get('max_length', None)
 
-    query_set = EmailLink.objects(tags__icontains=term_to_search)
+    query_set = EmailLink.objects(Q(tags__regex=f'(?i){term_to_search}'))
+
     
          # apply filters
     query_set, error = apply_filters(query_set, start_date, end_date, min_length, max_length)
