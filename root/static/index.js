@@ -192,6 +192,6 @@ function fetchAndDisplay(url, displayElement){
     displayElement.appendChild(clearBtn)
   })
   .catch(error => {
-    console.error("Error fetching all links:", error)
+    console.error("Error fetching links:", error)
   });
 }
