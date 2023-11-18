@@ -44,7 +44,7 @@ A huge shoutout to FreeCodeCamp and Quincy Larson for making all the data availa
 
 ## What I Learned
 
-This project was all about diving deeper into Python development post-bootcamp. It provided an opportunity to explore the Python ecosystem, experiment combining Flask and MongoDB, and integrating an AI language model while developing a RESTful API.  Having some more time to explore allowed for a more in-depth understanding of the underlying concepts, and an even greater appreciation for Python!
+This project was all about diving deeper into Python development post-bootcamp. It provided an opportunity to explore the Python ecosystem, experiment combining Flask and MongoDB, and integrating an AI language model while developing a RESTful API.  Having some more time post-bootcamp to explore allowed for a more in-depth understanding of the underlying concepts, and an even greater appreciation for Python!
 
 ## Future Plans
 
@@ -67,13 +67,12 @@ then create the database,
 use quincy_api
 ```
 
-next, start the app with the --fetch-data flag:
+next, start the app with the --fetch-data flag. This will fetch, scrape and tag any article that is not already in the database.  Access to OpenAI API is required.
 ```bash
 python3 run.py --fetch-data
 ```
 
-This will fetch, scrape and tag any article that is not already in the database.
-To run the app without fetching data
+To run the app without fetching data.  You can still search the database on the description content.
 ```bash
 python3 run.py
 ```
