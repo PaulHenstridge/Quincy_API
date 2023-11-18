@@ -230,3 +230,5 @@ def search_by_tags_list_all():
               } for link in matching_links]
     
     return jsonify(links_list)
+
+
