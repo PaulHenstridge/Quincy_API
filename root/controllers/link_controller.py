@@ -113,24 +113,25 @@ def search_links_by_tag():
     max_length = request.args.get('max_length', None)
 
 
-    query_set = EmailLink.objects(tags__iexact=tag_to_search)
-    print("query_set before filters, ", query_set)
+    all_links = EmailLink.objects.all()
 
-     # apply filters
-    query_set, error = apply_filters(query_set, start_date, end_date, min_length, max_length)
-    print("query_set after filters, ", query_set)
+    # Perform case-insensitive matching in Python
+    matching_links = [link for link in all_links if any(tag_to_search.lower() == tag.lower() for tag in link.tags)]
+
+    # Apply filters
+    filtered_links, error = apply_filters(matching_links, start_date, end_date, min_length, max_length)
+
+    print("query_set after filters, ", filtered_links)
 
     if error:
         return jsonify({"error": error}), 400
-    
-    matching_links = list(query_set)
 
     links_list = [{
         'date': link.date,
           'link': link.link,
             'length': link.length,
               'description': link.description
-              } for link in matching_links]
+              } for link in filtered_links]
     return jsonify(links_list)
 
 
@@ -147,7 +148,7 @@ def search_links_by_tag_partial():
     all_links = EmailLink.objects.all()
 
     # Perform string matching in Python
-    matching_links = [link for link in all_links if any(term_to_search in tag.lower() for tag in link.tags)]
+    matching_links = [link for link in all_links if any(term_to_search.lower() in tag.lower() for tag in link.tags)]
 
     # Apply filters
     filtered_links, error = apply_filters(matching_links, start_date, end_date, min_length, max_length)
