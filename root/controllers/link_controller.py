@@ -176,11 +176,11 @@ def search_by_tags_list():
     max_length = request.args.get('max_length', None)
 
     # split and remove any empty strings
-    tags_to_search = [tag.strip() for tag in tags_string.split(',')]
+    tags_to_search = [tag.strip().lower() for tag in tags_string.split(',')]
     print("searching tags:", tags_to_search)
 
     # Use the __in operator to match any of the tags in the list
-    query_set = EmailLink.objects(tags__in=tags_to_search)
+    query_set = EmailLink.objects()
 
             # apply filters
     query_set, error = apply_filters(query_set, start_date, end_date, min_length, max_length)
@@ -188,8 +188,7 @@ def search_by_tags_list():
     if error:
         return jsonify({"error": error}), 400
     
-    matching_links = list(query_set)
-
+    matching_links = [link for link in query_set if any(tag in (t.lower() for t in link.tags) for tag in tags_to_search)]
     links_list = [{
         'date': link.date,
           'link': link.link,
@@ -213,7 +212,7 @@ def search_by_tags_list_all():
     tags_to_search = [tag.strip() for tag in tags_string.split(',')]
     print("searching tags:", tags_to_search)
     # Use the __in operator to match any of the tags in the list
-    query_set = EmailLink.objects(tags__in=tags_to_search)
+    query_set = EmailLink.objects()
             # apply filters
     query_set, error = apply_filters(query_set, start_date, end_date, min_length, max_length)
  
@@ -221,7 +220,7 @@ def search_by_tags_list_all():
         return jsonify({"error": error}), 400
     
         # use python all() to return links where all tags are present
-    matching_links = [link for link in query_set if all(tag in link.tags for tag in tags_to_search)]
+    matching_links = [link for link in query_set if all(tag.lower() in (t.lower() for t in link.tags) for tag in tags_to_search)]
 
     links_list = [{
         'date': link.date,

@@ -11,7 +11,8 @@ from ...models.quote import Quote
 
 data_url = "https://raw.githubusercontent.com/sourabh-joshi/awesome-quincy-larson-emails/main/emails.json"
 
-# allowing the date to be parsed in either abbreviated or full word format
+# allowing the date to be parsed in either abbreviated (eg Sept, Oct)
+#  or full word format (eg May, June)
 def flexible_strptime(date_str):
     formats = ["%b %d, %Y", "%B %d, %Y"] 
     for format in formats:
