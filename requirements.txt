@@ -1,0 +1,5 @@
+beautifulsoup4==4.12.2
+git-filter-repo==2.38.0
+psycopg2==2.9.6
+pywatchman==1.4.1
+soupsieve==2.4.1

@@ -4,7 +4,7 @@ import re
 sys.path.append('/Users/paulhenstridge/Desktop/dev/python/quincy_api')
 
 from mongoengine import connect
-from root.models.email_link import EmailLink
+from app.models.email_link import EmailLink
 
 connect(db="quincy_api", host="localhost", port=27017)
 
